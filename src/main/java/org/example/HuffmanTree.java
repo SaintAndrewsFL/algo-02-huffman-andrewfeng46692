@@ -1,28 +1,31 @@
 package org.example;
 
+
+import java.util.Map;
+import java.util.PriorityQueue;
+
 public class HuffmanTree {
 
+    private Node root;
 
-    public class Node {
-       private Integer frequency;
-       private Character val;
-       private Node leftChild;
-       private Node rightChild;
+    public HuffmanTree(Map<Character, Integer> frequencyMap) {
+        PriorityQueue<Node> priorityQueue = new PriorityQueue<>((n1, n2) -> n1.getFrequency() - n2.getFrequency());
 
-        public Node(Node leftChild, Node rightChild) {
-            this.leftChild = leftChild;
-            this.rightChild = rightChild;
-            frequency = leftChild.getFrequency() + rightChild.getFrequency();
+        for (Map.Entry<Character, Integer> entry : frequencyMap.entrySet()) {
+            priorityQueue.offer(new Node(entry.getValue(), entry.getKey()));
         }
 
-        public Node(Integer frequency, Character val) {
-            this.frequency = frequency;
-            this.val = val;
+        while (priorityQueue.size() > 1) {
+            Node left = priorityQueue.poll();
+            Node right = priorityQueue.poll();
+            Node parent = new Node(left, right);
+            priorityQueue.offer(parent);
         }
+        root = priorityQueue.poll();
+    }
 
-        public Integer getFrequency() {
-            return frequency;
-        }
+    public Node getRoot() {
+        return root;
     }
 }
 
