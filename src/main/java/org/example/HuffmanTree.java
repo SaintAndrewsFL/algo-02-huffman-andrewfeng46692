@@ -1,8 +1,10 @@
 package org.example;
 
-
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class HuffmanTree {
 
@@ -27,5 +29,31 @@ public class HuffmanTree {
     public Node getRoot() {
         return root;
     }
-}
+    public void printLevels() {
+        if (root == null) {
+            System.out.println("The tree is empty.");
+            return;
+        }
 
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();
+            StringBuilder levelOutput = new StringBuilder();
+
+            for (int i = 0; i < levelSize; i++) {
+                Node currentNode = queue.poll();
+                levelOutput.append(currentNode.getVal() != null ? currentNode.getVal() : "*").append(" ");
+
+                if (currentNode.getLeftChild() != null) {
+                    queue.add(currentNode.getLeftChild());
+                }
+                if (currentNode.getRightChild() != null) {
+                    queue.add(currentNode.getRightChild());
+                }
+            }
+            System.out.println(levelOutput.toString().trim());
+        }
+    }
+}
