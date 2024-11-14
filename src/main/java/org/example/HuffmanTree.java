@@ -38,21 +38,31 @@ public class HuffmanTree {
         Queue<Node> queue = new LinkedList<>();
         queue.add(root);
 
-        while (!queue.isEmpty()) {
+        boolean hasNextLevel = true;
+
+        while (hasNextLevel) {
             int levelSize = queue.size();
             StringBuilder levelOutput = new StringBuilder();
+            hasNextLevel = false;
 
             for (int i = 0; i < levelSize; i++) {
                 Node currentNode = queue.poll();
-                levelOutput.append(currentNode.getVal() != null ? currentNode.getVal() : "*").append(" ");
 
-                if (currentNode.getLeftChild() != null) {
+                if (currentNode == null) {
+                    levelOutput.append("* ");
+                    queue.add(null);
+                    queue.add(null);
+                } else {
+                    levelOutput.append(currentNode.getVal() != null ? currentNode.getVal() : "*").append(" ");
+
+                    if (currentNode.getLeftChild() != null || currentNode.getRightChild() != null) {
+                        hasNextLevel = true;
+                    }
                     queue.add(currentNode.getLeftChild());
-                }
-                if (currentNode.getRightChild() != null) {
                     queue.add(currentNode.getRightChild());
                 }
             }
+
             System.out.println(levelOutput.toString().trim());
         }
     }

@@ -8,7 +8,8 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
 
-        String text = FileOperations.readRTFText("LeGoat.rtf");
+      //  String text = "salvete";
+       String text = FileOperations.readRTFText("LeGoat.rtf");
 
         if (text != null) {
             System.out.println("File Content:");

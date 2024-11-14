@@ -25,20 +25,16 @@ public class FileOperations {
 
     public static String readRTFText(String rtfFile) {
         try {
-            // Construct the path to the RTF file in the Documents folder
             String documentsPath = System.getProperty("user.home") + "/Documents/" + rtfFile;
             Path filePath = Paths.get(documentsPath);
 
-            // Initialize an RTFEditorKit and Document to parse the RTF content
             RTFEditorKit rtfEditorKit = new RTFEditorKit();
             Document document = new DefaultStyledDocument();
 
-            // Read the RTF file and load it into the document
             try (InputStream inputStream = Files.newInputStream(filePath)) {
                 rtfEditorKit.read(inputStream, document, 0);
             }
 
-            // Extract and return the plain text from the document
             return document.getText(0, document.getLength());
 
         } catch (IOException | BadLocationException e) {
