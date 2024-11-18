@@ -53,8 +53,12 @@ public class HuffmanTree {
                     queue.add(null);
                     queue.add(null);
                 } else {
-                    levelOutput.append(currentNode.getVal() != null ? currentNode.getVal() : "*").append(" ");
-
+                    Character value = currentNode.getVal();
+                    if (value != null && (value == '\n' || value == '\r')) {
+                        levelOutput.append("↵ ");
+                    } else {
+                        levelOutput.append(value != null ? value : "*").append(" ");
+                    }
                     if (currentNode.getLeftChild() != null || currentNode.getRightChild() != null) {
                         hasNextLevel = true;
                     }
@@ -62,7 +66,6 @@ public class HuffmanTree {
                     queue.add(currentNode.getRightChild());
                 }
             }
-
             System.out.println(levelOutput.toString().trim());
         }
     }

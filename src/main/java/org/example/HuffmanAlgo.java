@@ -23,7 +23,12 @@ public class HuffmanAlgo {
 
         System.out.println("Character Encoding:");
         for (Map.Entry<Character, String> entry : encodingMap.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
+            Character value = entry.getKey();
+            if (value != null && (value == '\n' || value == '\r')) {
+                System.out.println("↵" + ": " + entry.getValue());
+            }else {
+                System.out.println(entry.getKey() + ": " + entry.getValue());
+            }
         }
 
         tree.printLevels();
